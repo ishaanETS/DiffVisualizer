@@ -9,6 +9,19 @@ Class {
 	#category : #DiffVisualizer
 }
 
+{ #category : #'instance creation' }
+DataClass class >> fromCSV: filename [
+	filename asFileReference
+		readStreamDo: [ :readStream |
+			(NeoCSVReader on: readStream)
+				skipHeader;
+				recordClass: DataClass;
+				addField: #filename: ;
+				addField: #plus_indexes: ;
+				addField: #minus_indexes: ;
+				upToEnd ]
+]
+
 { #category : #accessing }
 DataClass >> additions [
 	^plus_indexes size.
