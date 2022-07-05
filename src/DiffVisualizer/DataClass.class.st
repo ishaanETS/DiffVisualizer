@@ -15,6 +15,11 @@ DataClass >> additions [
 ]
 
 { #category : #accessing }
+DataClass >> filename [
+	^filename.
+]
+
+{ #category : #accessing }
 DataClass >> filename: temp [
 	filename := temp.
 ]
