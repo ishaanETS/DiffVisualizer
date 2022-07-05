@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'plus_indexes',
-		'minus_indexes'
+		'minus_indexes',
+		'filename'
 	],
 	#category : #DiffVisualizer
 }
@@ -11,6 +12,11 @@ Class {
 { #category : #accessing }
 DataClass >> additions [
 	^plus_indexes size.
+]
+
+{ #category : #accessing }
+DataClass >> filename: temp [
+	filename := temp.
 ]
 
 { #category : #initialization }
@@ -39,6 +45,19 @@ DataClass >> plus_indexes [
 { #category : #accessing }
 DataClass >> plus_indexes: temp [
 	plus_indexes := temp.
+]
+
+{ #category : #accessing }
+DataClass >> readCSV [
+	'/Users/ishaan/Downloads/GRI/temp_data.csv' asFileReference
+		readStreamDo: [ :readStream |
+			(NeoCSVReader on: readStream)
+				skipHeader;
+				addField;
+				addField;
+				addField;
+				upToEnd ].
+		^ 0.
 ]
 
 { #category : #accessing }
