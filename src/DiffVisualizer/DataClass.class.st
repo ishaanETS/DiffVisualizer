@@ -11,7 +11,7 @@ Class {
 
 { #category : #'instance creation' }
 DataClass class >> fromCSV: filename [
-	filename asFileReference
+	^ filename asFileReference
 		readStreamDo: [ :readStream |
 			(NeoCSVReader on: readStream)
 				skipHeader;
@@ -19,7 +19,8 @@ DataClass class >> fromCSV: filename [
 				addField: #filename: ;
 				addField: #plus_indexes: ;
 				addField: #minus_indexes: ;
-				upToEnd ]
+				upToEnd ].
+	
 ]
 
 { #category : #accessing }
