@@ -67,19 +67,6 @@ DataClass >> plus_indexes: temp [
 ]
 
 { #category : #accessing }
-DataClass >> readCSV [
-	'/Users/ishaan/Downloads/GRI/temp_data.csv' asFileReference
-		readStreamDo: [ :readStream |
-			(NeoCSVReader on: readStream)
-				skipHeader;
-				addField;
-				addField;
-				addField;
-				upToEnd ].
-		^ 0.
-]
-
-{ #category : #accessing }
 DataClass >> subtractions [
 	^minus_indexes size.
 ]
