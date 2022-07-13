@@ -1,21 +1,37 @@
 Class {
 	#name : #Commit,
 	#superclass : #Object,
+	#instVars : [
+		'diffs'
+	],
 	#category : #DiffVisualizer
 }
 
+{ #category : #accessing }
+Commit >> diffs [
+
+	^ diffs
+]
+
+{ #category : #accessing }
+Commit >> diffs: anObject [
+
+	diffs := anObject
+]
+
 { #category : #'instance creation' }
 Commit >> fromCSV: filename [
-	^ filename asFileReference
-		readStreamDo: [ :readStream |
-			(NeoCSVReader on: readStream)
-				skipHeader;
-				recordClass: DataClass;
-				addField: #filename: ;
-				addField: #plus_indexes: ;
-				addField: #minus_indexes: ;
-				upToEnd ].
-	
+
+	diffs := filename asFileReference readStreamDo: [ :readStream | 
+		         (NeoCSVReader on: readStream)
+			         skipHeader;
+			         recordClass: DataClass;
+			         addField: #filename:;
+			         addField: #plus_indexes:;
+			         addField: #minus_indexes:;
+			         upToEnd ].
+		
+	^self
 ]
 
 { #category : #'instance creation' }
