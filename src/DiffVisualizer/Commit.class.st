@@ -10,10 +10,10 @@ Class {
 }
 
 { #category : #'instance creation' }
-Commit >> classModified: filename [
+Commit >> classModified: diff [
 
-	^ theclass:= mseMooseModel allModelClasses detect: [ :c | 
-		  c sourceAnchor fileName endsWith: filename ]
+	^ mseMooseModel allModelClasses detect: [ :c | 
+		              c sourceAnchor fileName endsWith: diff filename  ]
 ]
 
 { #category : #accessing }
