@@ -3,10 +3,18 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'diffs',
-		'mseMooseModel'
+		'mseMooseModel',
+		'theclass'
 	],
 	#category : #DiffVisualizer
 }
+
+{ #category : #'instance creation' }
+Commit >> classModified: filename [
+
+	^ theclass:= mseMooseModel allModelClasses detect: [ :c | 
+		  c sourceAnchor fileName endsWith: filename ]
+]
 
 { #category : #accessing }
 Commit >> diffs [
@@ -53,6 +61,12 @@ Commit >> loadMSE: filepath rootfolder: rootfolderpath [
 	^ self
 ]
 
+{ #category : #'instance creation' }
+Commit >> methodsModified: index [
+
+	^ theclass methods detect: [ :m| index between: m sourceAnchor startLine and:  m sourceAnchor endLine].
+]
+
 { #category : #accessing }
 Commit >> mseMooseModel [
 
@@ -63,4 +77,16 @@ Commit >> mseMooseModel [
 Commit >> mseMooseModel: anObject [
 
 	mseMooseModel := anObject
+]
+
+{ #category : #accessing }
+Commit >> theclass [
+
+	^ theclass
+]
+
+{ #category : #accessing }
+Commit >> theclass: anObject [
+
+	^ theclass := anObject
 ]
