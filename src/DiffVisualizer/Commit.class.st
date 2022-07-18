@@ -13,7 +13,7 @@ Class {
 Commit >> classModified: diff [
 
 	^ mseMooseModel allModelClasses detect: [ :c | 
-		              c sourceAnchor fileName endsWith: diff filename  ]
+		  c sourceAnchor fileName endsWith: diff filename ] ifNone: [ nil ] .
 ]
 
 { #category : #accessing }
