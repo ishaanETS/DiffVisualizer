@@ -62,9 +62,15 @@ Commit >> loadMSE: filepath rootfolder: rootfolderpath [
 ]
 
 { #category : #'instance creation' }
-Commit >> methodsModified: index [
+Commit >> methodsModified: diff [
 
-	^ theclass methods detect: [ :m| index between: m sourceAnchor startLine and:  m sourceAnchor endLine].
+	theclass := mseMooseModel allModelClasses detect: [ :c | 
+		            c sourceAnchor fileName endsWith: diff filename ].
+
+	^ theclass methods detect: [ :m | 
+		  33
+			  between: m sourceAnchor startLine
+			  and: m sourceAnchor endLine ]
 ]
 
 { #category : #accessing }
