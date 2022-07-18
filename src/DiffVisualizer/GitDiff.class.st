@@ -1,5 +1,5 @@
 Class {
-	#name : #DataClass,
+	#name : #GitDiff,
 	#superclass : #Object,
 	#instVars : [
 		'plus_indexes',
@@ -10,12 +10,12 @@ Class {
 }
 
 { #category : #'instance creation' }
-DataClass class >> fromCSV: filename [
+GitDiff class >> fromCSV: filename [
 	^ filename asFileReference
 		readStreamDo: [ :readStream |
 			(NeoCSVReader on: readStream)
 				skipHeader;
-				recordClass: DataClass;
+				recordClass: GitDiff;
 				addField: #filename: ;
 				addField: #plus_indexes: ;
 				addField: #minus_indexes: ;
@@ -24,22 +24,22 @@ DataClass class >> fromCSV: filename [
 ]
 
 { #category : #accessing }
-DataClass >> additions [
+GitDiff >> additions [
 	^plus_indexes size.
 ]
 
 { #category : #accessing }
-DataClass >> filename [
+GitDiff >> filename [
 	^filename.
 ]
 
 { #category : #accessing }
-DataClass >> filename: temp [
+GitDiff >> filename: temp [
 	filename := temp.
 ]
 
 { #category : #initialization }
-DataClass >> initialize [
+GitDiff >> initialize [
 	super initialize.
 	plus_indexes := #(1 4 7 10 11).
 	minus_indexes := #(2 5 6).
@@ -47,26 +47,26 @@ DataClass >> initialize [
 ]
 
 { #category : #accessing }
-DataClass >> minus_indexes [
+GitDiff >> minus_indexes [
 	^minus_indexes
 ]
 
 { #category : #accessing }
-DataClass >> minus_indexes: temp [
+GitDiff >> minus_indexes: temp [
 	minus_indexes := temp.
 ]
 
 { #category : #accessing }
-DataClass >> plus_indexes [
+GitDiff >> plus_indexes [
 	^plus_indexes
 ]
 
 { #category : #accessing }
-DataClass >> plus_indexes: temp [
+GitDiff >> plus_indexes: temp [
 	plus_indexes := temp.
 ]
 
 { #category : #accessing }
-DataClass >> subtractions [
+GitDiff >> subtractions [
 	^minus_indexes size.
 ]

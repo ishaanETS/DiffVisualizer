@@ -34,7 +34,7 @@ Commit >> fromCSV: filename [
 	diffs := filename asFileReference readStreamDo: [ :readStream | 
 		         (NeoCSVReader on: readStream)
 			         skipHeader;
-			         recordClass: DataClass;
+			         recordClass: GitDiff;
 			         addField: #filename:;
 			         addField: #plus_indexes:;
 			         addField: #minus_indexes:;
