@@ -44,6 +44,13 @@ Commit >> fromCSV: filename [
 ]
 
 { #category : #'instance creation' }
+Commit >> fromJson: filename [
+
+	^ filename asFileReference readStreamDo: [ :readStream | 
+		  (NeoJSONReader on: readStream) next ]
+]
+
+{ #category : #'instance creation' }
 Commit >> loadMSE: filepath rootfolder: rootfolderpath [
 
 	| mseFileRef mseStream mooseModel |
@@ -95,4 +102,39 @@ Commit >> theclass [
 Commit >> theclass: anObject [
 
 	^ theclass := anObject
+]
+
+{ #category : #'as yet unclassified' }
+Commit >> treelayout [
+
+	| c shapes eb label testClasses |
+	c := RSCanvas new.
+	label := RSLabeled new highlightable.
+	testClasses := mseMooseModel allModelClasses select: [ :cls | 
+		               cls mooseName beginsWith:
+			               'headfirst::designpatterns::strategy::AnimalTest' ].
+	shapes := testClasses collect: [ :cls | 
+		          RSComposite new
+			          model: cls;
+			          @ label;
+			          draggable;
+			          size: 5;
+			          yourself ].
+
+	c addAll: shapes.
+	RSNormalizer color
+		from: (Color gray alpha: 0.5);
+		to: (Color red alpha: 0.5);
+		shapes: shapes;
+		normalize: #numberOfMethods.
+	RSNormalizer size
+		shapes: shapes;
+		normalize: #numberOfMethods.
+	eb := RSLineBuilder line.
+	eb canvas: c.
+	eb connectFrom: #superclass.
+	RSTreeLayout on: shapes.
+	shapes do: [ :e | e translateBy: 0 @ 0 ].
+	c @ RSCanvasController.
+	^ c
 ]
