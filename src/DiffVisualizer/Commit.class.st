@@ -50,6 +50,47 @@ Commit >> fromJson: filename [
 		  (NeoJSONReader on: readStream) next ]
 ]
 
+{ #category : #'as yet unclassified' }
+Commit >> hierarchyPlot [
+
+	| classes canvas shapes |
+    classes := mseMooseModel  allModelClasses select: [ :cls | 
+                   cls mooseName beginsWith:
+                       'headfirst::designpatterns::combining::composite' ].
+
+    canvas := RSCanvas new.
+    shapes := classes collect: [ :cls | 
+                  | methods |
+                  methods := cls methods collect: [ :met | 
+                                 RSBox new
+                                     model: met;
+                                     width: 20;
+                                     height: met numberOfLinesOfCode;
+                                     color: Color blue translucent;
+                                     popup;
+                                     when: RSMouseClick
+                                     do: [ :evt | evt shape inspect ];
+                                     yourself ].
+                  RSGridLayout on: methods.
+                  RSComposite new
+                      model: cls;
+                      shapes: methods;
+                      padding: 10;
+                      color: Color gray translucent;
+                      draggable;
+                      popup;
+                      yourself ].
+    RSLineBuilder orthoVertical
+        withVerticalAttachPoint;
+        canvas: canvas;
+        shapes: shapes;
+        connectFrom: #superclass.
+    canvas addAll: shapes.
+    RSTreeLayout on: shapes.
+    canvas @ RSCanvasController.
+    ^ canvas
+]
+
 { #category : #'instance creation' }
 Commit >> loadMSE: filepath rootfolder: rootfolderpath [
 
