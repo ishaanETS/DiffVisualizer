@@ -46,8 +46,12 @@ Commit >> fromCSV: filename [
 { #category : #'instance creation' }
 Commit >> fromJson: filename [
 
-	^ filename asFileReference readStreamDo: [ :readStream | 
-		  (NeoJSONReader on: readStream) next ]
+	|temp_dictionary |
+	temp_dictionary := filename asFileReference readStreamDo: [ :readStream | 
+		         (NeoJSONReader on: readStream) next ].
+	
+	temp_dictionary first.
+	^ self
 ]
 
 { #category : #'as yet unclassified' }
