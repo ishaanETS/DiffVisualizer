@@ -9,6 +9,14 @@ Class {
 	#category : #DiffVisualizer
 }
 
+{ #category : #accessing }
+Commit class >> neoJsonMapping: mapper [
+
+    "don't map the moosemodel instance var"
+
+    mapper for: self do: [ :mapping | mapping mapInstVars: #( diffs ) ]
+]
+
 { #category : #'instance creation' }
 Commit >> classModified: diff [
 

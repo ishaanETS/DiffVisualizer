@@ -24,6 +24,12 @@ GitDiff class >> fromCSV: filename [
 ]
 
 { #category : #accessing }
+GitDiff class >> neoJsonMapping: mapper [
+
+    mapper for: self do: [ :mapping | mapping mapInstVars ]
+]
+
+{ #category : #accessing }
 GitDiff >> additions [
 	^plus_indexes size.
 ]
